@@ -1,30 +1,26 @@
 section .data
-    even_msg db "even", 10       ; "even\n"
+    even_msg db "even", 10       
     even_len equ $ - even_msg
 
-    odd_msg db "odd", 10         ; "odd\n"
+    odd_msg db "odd", 10         
     odd_len equ $ - odd_msg
 
 section .bss
-    res resb 1                  ; temp storage for printing
+    res resb 1                  
 
 section .text
     global _start
 
 _start:
-    mov eax, 13                 ; number to check
+    mov eax, 13                
     call check_odd_even
 
-    ; exit
     mov eax, 1
     xor ebx, ebx
     int 0x80
 
-; function: check_odd_even
-; input: eax = number
-; prints "even\n" if even, "odd\n" if odd
 check_odd_even:
-    test eax, 1                ; check lowest bit
+    test eax, 1                
     jz is_even
 
     mov ecx, odd_msg
@@ -36,8 +32,7 @@ is_even:
     mov edx, even_len
 
 print_result:
-    mov eax, 4                 ; sys_write
-    mov ebx, 1                 ; stdout
+    mov eax, 4                 
+    mov ebx, 1                 
     int 0x80
     ret
-
